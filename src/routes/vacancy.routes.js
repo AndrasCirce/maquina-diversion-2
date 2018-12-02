@@ -20,7 +20,7 @@ router.post('/register', (req, res) => {
 
     connection.query(query, values, (err, results) => {
         if (err) return res.status(500).send(err);
-        return res.status(200).send(results[0][0]);
+        res.status(200).send(results[0][0]);
     });
 });
 

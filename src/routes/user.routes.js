@@ -3,7 +3,7 @@ const express    = require('express');
 const router     = express.Router();
 
 router.post('/login', (req, res) => {
-    let query = `select * from usuario where correo = ${req.body.email} and contraseña = ${req.body.password}`
+    let query = `select * from usuario where correo = "${req.body.email}" and contraseña = "${req.body.password}"`
     let email = req.body.email;
     let password = req.body.password;
 
@@ -12,7 +12,7 @@ router.post('/login', (req, res) => {
             console.log(err);
             return res.status(404).send({ Error: '404 Not found' });
         }
-        res.json(results[0][0]);
+        res.status(200).json(results);
     });
 });
 
@@ -28,7 +28,7 @@ router.post('/register', (req, res) => {
 
     connection.query(query, values, (err, results) => {
         if (err) return res.status(500).send(err);
-        return res.status(200).send(results[0][0]);
+        res.status(200).send(results[0][0]);
     });
 });
 
@@ -40,7 +40,7 @@ router.post('/search', (req, res) => {
 
     connection.query(query, values, (err, results) => {
         if (err) return res.status(500).send(err);
-        return res.status(200).send(results[0][0]);
+        res.status(200).json(results);
     });
 });
 
